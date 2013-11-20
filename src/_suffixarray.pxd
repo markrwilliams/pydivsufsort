@@ -1,4 +1,5 @@
 
+STUFF = 'hi'
 
 cdef extern from "../lib/include/divsufsort.h":
     ctypedef int sauchar_t

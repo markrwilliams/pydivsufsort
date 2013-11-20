@@ -5,9 +5,9 @@ from glob import glob
 import subprocess
 from os.path import exists
 
-from distutils.core import setup
-from distutils.extension import Extension
-from distutils.command.build_py import build_py as _build_py
+from setuptools import setup
+from setuptools.extension import Extension
+from setuptools.command.build_py import build_py as _build_py
 
 from Cython.Build import cythonize
 
@@ -16,7 +16,7 @@ class build_py(_build_py):
     if exists('lib/Makefile'):
         make_clean = subprocess.Popen(['make', 'distclean'], cwd='lib/')
         make_clean.wait()
-    configure = subprocess.Popen(['./configure', '--enable-shared'],
+    configure = subprocess.Popen(['./configure', '--enable-static'],
                                  cwd='lib/')
     configure.wait()
     make = subprocess.Popen(['make', '-j'], cwd='lib/')
