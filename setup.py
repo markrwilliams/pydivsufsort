@@ -16,9 +16,11 @@ class build_py(_build_py):
     if exists('lib/Makefile'):
         make_clean = subprocess.Popen(['make', 'distclean'], cwd='lib/')
         make_clean.wait()
-    configure = subprocess.Popen(['./configure'], cwd='lib/')
+    configure = subprocess.Popen(['./configure', '--enable-shared'],
+                                 cwd='lib/')
     configure.wait()
-
+    make = subprocess.Popen(['make', '-j'], cwd='lib/')
+    make.wait()
 
 setup(
     cmdclass={'build_py': build_py},
@@ -26,10 +28,7 @@ setup(
     include_dirs=['lib'],
     ext_modules=[
         Extension(
-            "divsufsort",
-            #sources=glob('lib/lib/*.c'),
+            "suffixarray",
+            sources=glob('src/*.c'),
             include_dirs=['lib/include'],
-            language="c",
-        )
-    ] + cythonize('src/*.pyx'),
-)
+            language="c")])
