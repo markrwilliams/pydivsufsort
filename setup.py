@@ -14,8 +14,10 @@ from Cython.Build import cythonize
 
 class build_py(_build_py):
     if exists('lib/Makefile'):
-        subprocess.Popen(['make', 'distclean'], cwd='lib/')
-    subprocess.Popen(['configure'], cwd='lib/')
+        make_clean = subprocess.Popen(['make', 'distclean'], cwd='lib/')
+        make_clean.wait()
+    configure = subprocess.Popen(['./configure'], cwd='lib/')
+    configure.wait()
 
 
 setup(
@@ -25,7 +27,7 @@ setup(
     ext_modules=[
         Extension(
             "divsufsort",
-            sources=glob('lib/lib/*.c'),
+            #sources=glob('lib/lib/*.c'),
             include_dirs=['lib/include'],
             language="c",
         )
