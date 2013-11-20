@@ -28,7 +28,7 @@ cdef extern from "../lib/include/divsufsort.h":
     #  * Returns the version of the divsufsort library.
     #  * @return The version number string.
     #  */
-    const char * divsufsort_version()
+    const char* divsufsort_version()
 
 
     # /**
